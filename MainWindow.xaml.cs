@@ -347,6 +347,35 @@ namespace MiProyectoWPF
 
         #region Envío de Correos
 
+        private string NormalizarNIT(string nit)
+        {
+            if (string.IsNullOrWhiteSpace(nit))
+                return string.Empty;
+            
+            // Manejo para formato "NIT 900832816 - 8"
+            if (nit.StartsWith("NIT", StringComparison.OrdinalIgnoreCase))
+            {
+                LogMessage($"Detectado formato de NIT con prefijo: {nit}");
+                // Extraer solo los dígitos y el guion
+                nit = nit.Substring(3).Trim();
+            }
+            
+            // Eliminar espacios y caracteres no esenciales
+            string soloDigitosGuion = new string(nit.Where(c => char.IsDigit(c) || c == '-').ToArray());
+            
+            // Si no tiene guion pero parece ser un NIT completo, añadir el guion
+            if (!soloDigitosGuion.Contains('-') && soloDigitosGuion.Length >= 9)
+            {
+                // Extraer el último dígito como dígito de verificación
+                string baseNit = soloDigitosGuion.Substring(0, soloDigitosGuion.Length - 1);
+                string digitoVerificacion = soloDigitosGuion[soloDigitosGuion.Length - 1].ToString();
+                soloDigitosGuion = $"{baseNit}-{digitoVerificacion}";
+            }
+            
+            LogMessage($"NIT normalizado: '{nit}' -> '{soloDigitosGuion}'");
+            return soloDigitosGuion;
+        }
+
         private async void SelectExcelFile_Click(object sender, RoutedEventArgs e)
         {
             LogMessage("Iniciando selección de archivo Excel");
@@ -420,10 +449,11 @@ namespace MiProyectoWPF
                 LogMessage($"Se encontraron {pdfFiles.Count} archivos PDF generados");
                 
                 Dictionary<string, string> empresaCorreos = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                Dictionary<string, string> nitCorreos = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
                 
                 if (!string.IsNullOrEmpty(selectedExcelFilePath) && File.Exists(selectedExcelFilePath))
                 {
-                    await LoadEmailsFromExcelAsync(empresaCorreos);
+                    await LoadEmailsFromExcelAsync(empresaCorreos, nitCorreos);
                     LogMessage($"Se encontraron correos para {empresaCorreos.Count} empresas en el Excel");
                 }
                 else
@@ -442,30 +472,12 @@ namespace MiProyectoWPF
                     string nit = empresasNits.ContainsKey(nombreEmpresa) ? empresasNits[nombreEmpresa] : "";
                     
                     bool tieneCorreo = empresaCorreos.TryGetValue(nombreEmpresa, out string correo);
-                    if (!tieneCorreo)
-                    {
-                        foreach (var emailKvp in empresaCorreos)
-                        {
-                            if ((nombreEmpresa.Length > 30 && emailKvp.Key.StartsWith(nombreEmpresa.Substring(0, 30), StringComparison.OrdinalIgnoreCase)) ||
-                                (emailKvp.Key.Length > 30 && nombreEmpresa.StartsWith(emailKvp.Key.Substring(0, 30), StringComparison.OrdinalIgnoreCase)))
-                            {
-                                tieneCorreo = true;
-                                correo = emailKvp.Value;
-                                break;
-                            }
-                        }
-                    }
-                    
                     if (!tieneCorreo && !string.IsNullOrEmpty(nit))
                     {
-                        foreach (var emailKvp in empresaCorreos)
+                        string nitNormalizado = NormalizarNIT(nit);
+                        if (!string.IsNullOrEmpty(nitNormalizado))
                         {
-                            if (emailKvp.Key.Contains(nit, StringComparison.OrdinalIgnoreCase))
-                            {
-                                tieneCorreo = true;
-                                correo = emailKvp.Value;
-                                break;
-                            }
+                            tieneCorreo = nitCorreos.TryGetValue(nitNormalizado, out correo);
                         }
                     }
                     
@@ -536,7 +548,13 @@ namespace MiProyectoWPF
                             pdfFiles[currentEmpresa] = currentRuta;
                             
                             if (!string.IsNullOrEmpty(currentNit))
+                            {
                                 empresasNits[currentEmpresa] = currentNit;
+                                
+                                string nitNormalizado = NormalizarNIT(currentNit);
+                                if (!string.IsNullOrEmpty(nitNormalizado))
+                                    empresasNits[nitNormalizado] = currentEmpresa;
+                            }
                             
                             loadedFromFile = true;
                         }
@@ -582,7 +600,13 @@ namespace MiProyectoWPF
                         pdfFiles[empresa] = file;
                         
                         if (!string.IsNullOrEmpty(nit))
+                        {
                             empresasNits[empresa] = nit;
+                            
+                            string nitNormalizado = NormalizarNIT(nit);
+                            if (!string.IsNullOrEmpty(nitNormalizado))
+                                empresasNits[nitNormalizado] = empresa;
+                        }
                     }
                     
                     LogMessage($"Se encontraron {pdfFiles.Count} archivos PDF en la carpeta");
@@ -590,7 +614,7 @@ namespace MiProyectoWPF
             }
         }
 
-        private async Task LoadEmailsFromExcelAsync(Dictionary<string, string> empresaCorreos)
+        private async Task LoadEmailsFromExcelAsync(Dictionary<string, string> empresaCorreos, Dictionary<string, string> nitCorreos)
         {
             LogMessage("Cargando correos electrónicos del archivo Excel");
             
@@ -606,37 +630,89 @@ namespace MiProyectoWPF
                             var lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 0;
                             if (lastRow <= 1) continue;
                             
-                            int nombreCol = 1;
-                            int correoCol = 6;
+                            // Columnas específicas según la estructura real del Excel
+                            int tipoDocCol = 2;    // Columna B - Tipo de documento (NIT)
+                            int numIdCol = 3;      // Columna C - Número de identificación
+                            int digitoVerCol = 4;  // Columna D - Dígito de verificación
+                            int correoCol = 6;     // Columna F - Correo electrónico (FIJO)
+                            int nombreCol = 7;     // Columna G - Nombre de la empresa (FIJO)
                             
-                            for (int col = 1; col <= 20; col++)
-                            {
-                                try
-                                {
-                                    string cellValue = worksheet.Cell(1, col).GetString().Trim().ToLower();
-                                    
-                                    if (cellValue.Contains("nombre") || cellValue.Contains("empresa"))
-                                        nombreCol = col;
-                                    else if (cellValue.Contains("correo") || cellValue.Contains("email"))
-                                        correoCol = col;
-                                }
-                                catch { }
-                            }
+                            LogMessage($"Usando estructura de columnas específica:");
+                            LogMessage($"- Tipo Documento: Columna B ({tipoDocCol})");
+                            LogMessage($"- Número ID: Columna C ({numIdCol})");
+                            LogMessage($"- Dígito Verificación: Columna D ({digitoVerCol})");
+                            LogMessage($"- Correo Electrónico: Columna F ({correoCol})");
+                            LogMessage($"- Nombre Empresa: Columna G ({nombreCol})");
+                            
+                            int empresasConNit = 0;
+                            int empresasConCorreo = 0;
                             
                             for (int row = 2; row <= lastRow; row++)
                             {
                                 try
                                 {
+                                    // CORRECCIÓN: Leer el nombre de empresa de la columna G
                                     string nombre = worksheet.Cell(row, nombreCol).GetString().Trim();
+                                    
+                                    // Leer tipo doc y componentes del NIT
+                                    string tipoDoc = worksheet.Cell(row, tipoDocCol).GetString().Trim();
+                                    string numId = worksheet.Cell(row, numIdCol).GetString().Trim();
+                                    string digitoVer = worksheet.Cell(row, digitoVerCol).GetString().Trim();
+                                    
+                                    // CORRECCIÓN: Leer correo de la columna F
                                     string correo = worksheet.Cell(row, correoCol).GetString().Trim();
                                     
-                                    if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(correo))
+                                    // Saltar filas con nombres vacíos o inválidos
+                                    if (string.IsNullOrEmpty(nombre) || 
+                                        nombre.ToLower().Contains("total") || 
+                                        nombre.Equals("nombre", StringComparison.OrdinalIgnoreCase))
+                                        continue;
+                                    
+                                    // Construir NIT completo si es tipo "NIT"
+                                    string nitCompleto = string.Empty;
+                                    if (tipoDoc.Equals("NIT", StringComparison.OrdinalIgnoreCase) && 
+                                        !string.IsNullOrEmpty(numId))
                                     {
+                                        if (!string.IsNullOrEmpty(digitoVer))
+                                            nitCompleto = $"{numId}-{digitoVer}";
+                                        else
+                                            nitCompleto = numId;
+                                        
+                                        LogMessage($"NIT construido para {nombre}: {nitCompleto}");
+                                    }
+                                    
+                                    // Guardar información de correo por nombre y por NIT
+                                    if (!string.IsNullOrEmpty(correo))
+                                    {
+                                        // Guardar por nombre de empresa
                                         empresaCorreos[nombre] = correo;
+                                        empresasConCorreo++;
+                                        
+                                        // Si hay NIT, también guardar indexado por NIT
+                                        if (!string.IsNullOrEmpty(nitCompleto))
+                                        {
+                                            string nitNormalizado = NormalizarNIT(nitCompleto);
+                                            if (!string.IsNullOrEmpty(nitNormalizado))
+                                            {
+                                                nitCorreos[nitNormalizado] = correo;
+                                                
+                                                string nitSinGuion = nitNormalizado.Replace("-", "");
+                                                if (!string.IsNullOrEmpty(nitSinGuion))
+                                                    nitCorreos[nitSinGuion] = correo;
+                                                
+                                                empresasConNit++;
+                                            }
+                                        }
                                     }
                                 }
-                                catch { }
+                                catch (Exception ex) 
+                                { 
+                                    LogMessage($"Error al procesar fila {row}: {ex.Message}");
+                                }
                             }
+                            
+                            LogMessage($"Total de empresas con correo: {empresasConCorreo}");
+                            LogMessage($"Total de NITs asociados a correos: {empresasConNit}");
                         }
                     }
                 }
@@ -645,6 +721,168 @@ namespace MiProyectoWPF
                     LogMessage($"Error al procesar Excel: {ex.Message}");
                 }
             });
+        }
+
+        private List<string> GetEmailsForCompany(string companyName)
+        {
+            List<string> emails = new List<string>();
+            
+            if (string.IsNullOrEmpty(selectedExcelFilePath) || !File.Exists(selectedExcelFilePath))
+            {
+                LogMessage($"Error: No se ha seleccionado un archivo Excel válido.");
+                return emails;
+            }
+            
+            LogMessage($"Buscando correos para empresa: {companyName}");
+            
+            try
+            {
+                string nitEmpresa = "";
+                
+                Dispatcher.Invoke(() =>
+                {
+                    foreach (var checkbox in checkboxes)
+                    {
+                        if (checkbox.Content?.ToString() == companyName && checkbox.Tag != null)
+                        {
+                            nitEmpresa = checkbox.Tag.ToString() ?? "";
+                            LogMessage($"NIT encontrado para {companyName}: {nitEmpresa}");
+                            break;
+                        }
+                    }
+                });
+                
+                using var workbook = new XLWorkbook(selectedExcelFilePath);
+                
+                string nitNormalizado = NormalizarNIT(nitEmpresa);
+                string nitSinGuion = nitNormalizado.Replace("-", "");
+                
+                foreach (var worksheet in workbook.Worksheets)
+                {
+                    LogMessage($"Revisando hoja: {worksheet.Name}");
+                    
+                    // CORRECCIÓN: Actualizar índices de columnas
+                    int tipoDocCol = 2;    // Columna B
+                    int numIdCol = 3;      // Columna C
+                    int digitoVerCol = 4;  // Columna D
+                    int correoCol = 6;     // Columna F - CORREO
+                    int nombreCol = 7;     // Columna G - NOMBRE
+                    
+                    LogMessage("Usando estructura de columnas específica para buscar correos:");
+                    LogMessage($"- Correos en columna F ({correoCol})");
+                    LogMessage($"- Nombres en columna G ({nombreCol})");
+                    
+                    var filas = worksheet.RowsUsed().Skip(1);
+                    
+                    foreach (var row in filas)
+                    {
+                        try {
+                            // CORRECCIÓN: Leer nombre de columna G
+                            string nombre = row.Cell(nombreCol).GetString().Trim();
+                            
+                            // Leer componentes del NIT
+                            string tipoDoc = row.Cell(tipoDocCol).GetString().Trim();
+                            string numId = row.Cell(numIdCol).GetString().Trim();
+                            string digitoVer = row.Cell(digitoVerCol).GetString().Trim();
+                            
+                            // CORRECCIÓN: Leer correo de columna F
+                            string correo = row.Cell(correoCol).GetString().Trim();
+                            
+                            // Construir NIT completo
+                            string nitCompleto = string.Empty;
+                            if (tipoDoc.Equals("NIT", StringComparison.OrdinalIgnoreCase) && 
+                                !string.IsNullOrEmpty(numId))
+                            {
+                                if (!string.IsNullOrEmpty(digitoVer))
+                                    nitCompleto = $"{numId}-{digitoVer}";
+                                else
+                                    nitCompleto = numId;
+                            }
+                            
+                            // Normalizar el NIT para comparación
+                            string nitFilaNormalizado = NormalizarNIT(nitCompleto);
+                            string nitFilaSinGuion = nitFilaNormalizado.Replace("-", "");
+                            
+                            // Diferentes tipos de coincidencia
+                            bool coincidePorNombre = string.Equals(nombre, companyName, StringComparison.OrdinalIgnoreCase);
+                            
+                            bool coincidePorNIT = !string.IsNullOrEmpty(nitNormalizado) && 
+                                                !string.IsNullOrEmpty(nitFilaNormalizado) && 
+                                                (nitNormalizado.Equals(nitFilaNormalizado, StringComparison.OrdinalIgnoreCase) || 
+                                                nitSinGuion.Equals(nitFilaSinGuion, StringComparison.OrdinalIgnoreCase));
+                            
+                            bool nitEnNombre = !string.IsNullOrEmpty(nitFilaNormalizado) && 
+                                            companyName.Contains(nitFilaNormalizado, StringComparison.OrdinalIgnoreCase);
+                            
+                            if (coincidePorNombre || coincidePorNIT || nitEnNombre)
+                            {
+                                LogMessage($"Coincidencia encontrada: {(coincidePorNombre ? "Nombre" : coincidePorNIT ? "NIT" : "NIT en nombre")}");
+                                
+                                if (!string.IsNullOrWhiteSpace(correo))
+                                {
+                                    string[] multipleEmails = correo.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                                    
+                                    foreach (string email in multipleEmails)
+                                    {
+                                        string cleanEmail = email.Trim();
+                                        if (IsValidEmail(cleanEmail) && !emails.Contains(cleanEmail))
+                                        {
+                                            emails.Add(cleanEmail);
+                                            LogMessage($"Correo válido encontrado: {cleanEmail}");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex) {
+                            LogMessage($"Error al procesar fila: {ex.Message}");
+                        }
+                    }
+                    
+                    if (emails.Count > 0)
+                        break;
+                }
+                
+                emails = emails.Distinct().ToList();
+                
+                if (emails.Count == 0)
+                    LogMessage($"⚠️ No se encontraron correos para {companyName}. Verifique que el nombre o NIT coincide.");
+                else
+                    LogMessage($"Total de correos encontrados para {companyName}: {emails.Count}");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error al buscar correos para {companyName}: {ex.Message}");
+            }
+            
+            return emails;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+                
+            if (email.Contains("@") && email.Contains("."))
+            {
+                if (email.StartsWith("@") || email.EndsWith("@") || 
+                    email.StartsWith(".") || email.EndsWith(".") ||
+                    email.Contains("..") || email.Split('@').Length != 2)
+                {
+                    return false;
+                }
+                
+                try {
+                    var addr = new System.Net.Mail.MailAddress(email);
+                    return addr.Address == email;
+                }
+                catch {
+                    LogMessage($"Correo con formato incorrecto: {email}");
+                    return false;
+                }
+            }
+            
+            return false;
         }
 
         private void CrearControlParaEmpresa(string nombre, string nit, string correo, string rutaPdf, bool tieneCorreo)
@@ -768,120 +1006,6 @@ namespace MiProyectoWPF
                     LogMessage($"⚠️ No se encontró archivo PDF para {empresa}. Correo no enviado.");
                 }
             }
-        }
-
-        private List<string> GetEmailsForCompany(string companyName)
-        {
-            List<string> emails = new List<string>();
-            
-            if (string.IsNullOrEmpty(selectedExcelFilePath) || !File.Exists(selectedExcelFilePath))
-            {
-                LogMessage($"Error: No se ha seleccionado un archivo Excel válido.");
-                return emails;
-            }
-                
-            LogMessage($"Buscando correos para empresa: {companyName}");
-            
-            try
-            {
-                string nitEmpresa = "";
-                
-                Dispatcher.Invoke(() =>
-                {
-                    foreach (var checkbox in checkboxes)
-                    {
-                        if (checkbox.Content?.ToString() == companyName && checkbox.Tag != null)
-                        {
-                            nitEmpresa = checkbox.Tag.ToString() ?? "";
-                            LogMessage($"NIT encontrado para {companyName}: {nitEmpresa}");
-                            break;
-                        }
-                    }
-                });
-                
-                using var workbook = new XLWorkbook(selectedExcelFilePath);
-                
-                foreach (var worksheet in workbook.Worksheets)
-                {
-                    LogMessage($"Revisando hoja: {worksheet.Name}");
-                    
-                    int filaInicial = 2;
-                    var filas = worksheet.RowsUsed().Skip(filaInicial - 1);
-                    
-                    foreach (var row in filas)
-                    {
-                        string nombreEmpresa = row.Cell("A").GetString().Trim();
-                        string identificacion = row.Cell("C").GetString().Trim();
-                        string correo = row.Cell("F").GetString().Trim();
-                        
-                        bool coincidePorNombre = string.Equals(nombreEmpresa, companyName, StringComparison.OrdinalIgnoreCase);
-                        bool coincidePorNIT = !string.IsNullOrEmpty(nitEmpresa) && string.Equals(identificacion, nitEmpresa, StringComparison.OrdinalIgnoreCase);
-                        
-                        if (coincidePorNombre || coincidePorNIT)
-                        {
-                            LogMessage($"¡Coincidencia encontrada! Empresa: {nombreEmpresa}, ID: {identificacion}");
-                            
-                            if (!string.IsNullOrWhiteSpace(correo))
-                            {
-                                string[] multipleEmails = correo.Split(new char[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                                
-                                foreach (string email in multipleEmails)
-                                {
-                                    string cleanEmail = email.Trim();
-                                    if (IsValidEmail(cleanEmail) && !emails.Contains(cleanEmail))
-                                    {
-                                        emails.Add(cleanEmail);
-                                        LogMessage($"Correo válido encontrado: {cleanEmail}");
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (emails.Count > 0)
-                        break;
-                }
-                
-                emails = emails.Distinct().ToList();
-                
-                if (emails.Count == 0)
-                    LogMessage($"⚠️ No se encontraron correos para {companyName}. Verifique que el nombre o NIT coincida exactamente con el Excel.");
-                else
-                    LogMessage($"Total de correos encontrados para {companyName}: {emails.Count}");
-            }
-            catch (Exception ex)
-            {
-                LogMessage($"Error al buscar correos para {companyName}: {ex.Message}");
-            }
-            
-            return emails;
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            if (string.IsNullOrWhiteSpace(email))
-                return false;
-                
-            if (email.Contains("@") && email.Contains("."))
-            {
-                if (email.StartsWith("@") || email.EndsWith("@") || 
-                    email.StartsWith(".") || email.EndsWith(".") ||
-                    email.Contains("..") || email.Split('@').Length != 2)
-                {
-                    return false;
-                }
-                
-                try {
-                    var addr = new System.Net.Mail.MailAddress(email);
-                    return addr.Address == email;
-                }
-                catch {
-                    LogMessage($"Correo con formato incorrecto: {email}");
-                    return false;
-                }
-            }
-            
-            return false;
         }
 
         private void MostrarDetallesArchivos_Click(object sender, RoutedEventArgs e)
