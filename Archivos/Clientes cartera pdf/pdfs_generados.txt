@@ -1,0 +1,111 @@
+Fecha de generación: 2025-03-28 16:17:43
+Total de PDFs generados: 18
+-------------------------------------------------------------
+Empresa: SOLUCIONES AMBIENTALES E INDUSTRIALES DEL CARIBE S.A.S.
+NIT: NIT 900832816 - 8
+Archivo: SOLUCIONES AMBIENTALES E INDUSTRIALES DEL CARIBE S_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\SOLUCIONES AMBIENTALES E INDUSTRIALES DEL CARIBE S_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: ASTINAVES S.A.S.
+NIT: NIT 900224143 - 1
+Archivo: ASTINAVES S.A.S._NIT 900224143 - 1_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\ASTINAVES S.A.S._NIT 900224143 - 1_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: BOCCARD COLOMBIA S.A.S.
+NIT: NIT 900376521 - 4
+Archivo: BOCCARD COLOMBIA S.A.S._NIT 900376521 - 4_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\BOCCARD COLOMBIA S.A.S._NIT 900376521 - 4_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: C.I. COLOMBIAN NATURAL RESOURCES I S.A.S. EN REORGANIZACION
+NIT: NIT 900333530 - 6
+Archivo: C.I. COLOMBIAN NATURAL RESOURCES I S.A.S. EN REORG_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\C.I. COLOMBIAN NATURAL RESOURCES I S.A.S. EN REORG_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: CERRO MATOSO S.A
+NIT: NIT 860069378 - 6
+Archivo: CERRO MATOSO S.A_NIT 860069378 - 6_CarteraPorVencer.pdf
+Tipo: Por Vencer
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\CERRO MATOSO S.A_NIT 860069378 - 6_CarteraPorVencer.pdf
+-------------------------------------------------------------
+Empresa: CI CARBONES DE SANTANDER S.A.S
+NIT: NIT 800148462 - 8
+Archivo: CI CARBONES DE SANTANDER S.A.S_NIT 800148462 - 8_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\CI CARBONES DE SANTANDER S.A.S_NIT 800148462 - 8_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: CONSTELLATION INDUSTRIES S.A.S
+NIT: NIT 901218486 - 1
+Archivo: CONSTELLATION INDUSTRIES S.A.S_NIT 901218486 - 1_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\CONSTELLATION INDUSTRIES S.A.S_NIT 901218486 - 1_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: CONSTRUCCIONES METALICAS DEL CARIBE S.A.S
+NIT: NIT 800197527 - 7
+Archivo: CONSTRUCCIONES METALICAS DEL CARIBE S.A.S_NIT 8001_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\CONSTRUCCIONES METALICAS DEL CARIBE S.A.S_NIT 8001_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: CORPORACION DE CIENCIA Y TECNOLOGIA PARA EL DESARROLLO DE LA INDUSTRIA NAVAL MARITIMA Y FLUVIAL
+NIT: NIT 806008873 - 3
+Archivo: CORPORACION DE CIENCIA Y TECNOLOGIA PARA EL DESARR_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\CORPORACION DE CIENCIA Y TECNOLOGIA PARA EL DESARR_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: FLUVICOL GROUP S.A.S
+NIT: NIT 901089075 - 3
+Archivo: FLUVICOL GROUP S.A.S_NIT 901089075 - 3_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\FLUVICOL GROUP S.A.S_NIT 901089075 - 3_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: INDUSTRIAS METALEX  S.A.S
+NIT: NIT 900489117 - 7
+Archivo: INDUSTRIAS METALEX  S.A.S_NIT 900489117 - 7_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\INDUSTRIAS METALEX  S.A.S_NIT 900489117 - 7_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: ING CONS S.A.S.
+NIT: NIT 806000233 - 3
+Archivo: ING CONS S.A.S._NIT 806000233 - 3_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\ING CONS S.A.S._NIT 806000233 - 3_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: INVERSIONES INMOBILIARIAS BARRAL SAS
+NIT: NIT 901024723 - 9
+Archivo: INVERSIONES INMOBILIARIAS BARRAL SAS_NIT 901024723_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\INVERSIONES INMOBILIARIAS BARRAL SAS_NIT 901024723_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: PROCAPS S.A
+NIT: NIT 890106527 - 5
+Archivo: PROCAPS S.A_NIT 890106527 - 5_CarteraPorVencer.pdf
+Tipo: Por Vencer
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\PROCAPS S.A_NIT 890106527 - 5_CarteraPorVencer.pdf
+-------------------------------------------------------------
+Empresa: SAESCO INGENIERIA S.A.S
+NIT: NIT 901216667 - 9
+Archivo: SAESCO INGENIERIA S.A.S_NIT 901216667 - 9_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\SAESCO INGENIERIA S.A.S_NIT 901216667 - 9_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: SEATECH INTERNACIONAL
+NIT: NIT 800072556 - 3
+Archivo: SEATECH INTERNACIONAL_NIT 800072556 - 3_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\SEATECH INTERNACIONAL_NIT 800072556 - 3_CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: SERVICIOS INDUSTRIALES Y METALMECANICOS S.A.S
+NIT: NIT 806005516 - 5
+Archivo: SERVICIOS INDUSTRIALES Y METALMECANICOS S.A.S_NIT _CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\SERVICIOS INDUSTRIALES Y METALMECANICOS S.A.S_NIT _CarteraVencida.pdf
+-------------------------------------------------------------
+Empresa: SERVIMET SAS
+NIT: NIT 800225803 - 6
+Archivo: SERVIMET SAS_NIT 800225803 - 6_CarteraVencida.pdf
+Tipo: Vencida
+Ruta: D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\Clientes cartera pdf\SERVIMET SAS_NIT 800225803 - 6_CarteraVencida.pdf
+-------------------------------------------------------------

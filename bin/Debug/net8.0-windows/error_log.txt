@@ -1,0 +1,16 @@
+[28/03/2025 2:34:12 p. m.] Aplicación iniciada
+[28/03/2025 2:34:41 p. m.] DispatcherUnhandledException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '229'; posición de línea: '47').
+   at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadBamlStreamWithSyncInfo(Stream stream, ParserContext pc)
+   at System.Windows.Application.DoStartup()
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[28/03/2025 2:38:14 p. m.] Aplicación iniciada
+[28/03/2025 2:39:57 p. m.] Aplicación iniciada
+[28/03/2025 2:41:46 p. m.] Aplicación iniciada
+[28/03/2025 2:52:44 p. m.] Aplicación iniciada

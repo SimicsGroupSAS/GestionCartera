@@ -1,0 +1,10 @@
+La carpeta 'temp' ya existe en: D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\temp
+Aplicación iniciada
+Enviando correo de prueba a: practicante@simicsgroup.com
+Usando servidor SMTP: smtppro.zoho.com en puerto: 465
+La carpeta 'temp' ya existe en: D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\temp
+Aplicación iniciada
+Enviando correo de prueba a: practicante@simicsgroup.com
+Usando servidor SMTP: smtppro.zoho.com en puerto: 465
+La carpeta 'temp' ya existe en: D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\temp
+Aplicación iniciada

@@ -1,0 +1,156 @@
+[26/03/2025 11:42:39] Aplicación iniciada
+[26/03/2025 11:43:36] Aplicación iniciada
+[26/03/2025 11:44:39] Aplicación iniciada
+[26/03/2025 11:49:27] Aplicación iniciada
+[26/03/2025 11:56:34] Aplicación iniciada
+[26/03/2025 13:35:51] Aplicación iniciada
+[26/03/2025 14:27:48] Aplicación iniciada
+[26/03/2025 14:36:29] Aplicación iniciada
+[26/03/2025 14:45:46] Aplicación iniciada
+[26/03/2025 14:48:04] Aplicación iniciada
+[26/03/2025 14:48:43] Aplicación iniciada
+[26/03/2025 14:58:20] Aplicación iniciada
+[26/03/2025 15:06:19] Aplicación iniciada
+[26/03/2025 15:06:57] Aplicación iniciada
+[26/03/2025 15:07:21] Aplicación iniciada
+[26/03/2025 15:09:18] Aplicación iniciada
+[26/03/2025 15:11:13] Aplicación iniciada
+[26/03/2025 15:14:57] Aplicación iniciada
+[26/03/2025 15:15:27] Aplicación iniciada
+[26/03/2025 15:23:32] Aplicación iniciada
+[26/03/2025 15:32:13] Aplicación iniciada
+[26/03/2025 15:32:47] Aplicación iniciada
+[26/03/2025 15:36:49] Aplicación iniciada
+[26/03/2025 15:42:27] Aplicación iniciada
+[26/03/2025 15:52:49] Aplicación iniciada
+[26/03/2025 15:56:42] Aplicación iniciada
+[26/03/2025 16:01:19] Aplicación iniciada
+[26/03/2025 16:03:38] Aplicación iniciada
+[26/03/2025 16:04:55] Aplicación iniciada
+[26/03/2025 16:06:14] Aplicación iniciada
+[26/03/2025 16:08:56] Aplicación iniciada
+[26/03/2025 16:09:13] Aplicación iniciada
+[26/03/2025 16:10:29] Aplicación iniciada
+[26/03/2025 16:11:33] Aplicación iniciada
+[26/03/2025 16:12:46] Aplicación iniciada
+[26/03/2025 16:16:25] Aplicación iniciada
+[26/03/2025 16:19:55] Aplicación iniciada
+[26/03/2025 16:20:56] Aplicación iniciada
+[26/03/2025 16:23:12] Aplicación iniciada
+[26/03/2025 16:24:00] Aplicación iniciada
+[26/03/2025 16:27:16] Aplicación iniciada
+[26/03/2025 16:30:03] Aplicación iniciada
+[26/03/2025 16:31:07] Aplicación iniciada
+[26/03/2025 16:32:58] Aplicación iniciada
+[26/03/2025 16:36:48] Aplicación iniciada
+[26/03/2025 16:37:54] Aplicación iniciada
+[27/03/2025 8:04:45] Aplicación iniciada
+[27/03/2025 8:12:52] Aplicación iniciada
+[27/03/2025 8:21:06] Aplicación iniciada
+[27/03/2025 8:23:17] Aplicación iniciada
+[27/03/2025 8:31:14] Aplicación iniciada
+[27/03/2025 9:11:52] Aplicación iniciada
+[27/03/2025 9:45:46] Aplicación iniciada
+[27/03/2025 10:10:24] Aplicación iniciada
+[27/03/2025 10:16:35] Aplicación iniciada
+[27/03/2025 10:17:32] Aplicación iniciada
+[27/03/2025 10:18:12] Aplicación iniciada
+[27/03/2025 10:25:02] Aplicación iniciada
+[27/03/2025 10:30:29] Aplicación iniciada
+[27/03/2025 10:37:11] Aplicación iniciada
+[27/03/2025 10:44:17] Aplicación iniciada
+[27/03/2025 10:47:30] Aplicación iniciada
+[27/03/2025 10:53:05] Aplicación iniciada
+[27/03/2025 10:56:34] Aplicación iniciada
+[27/03/2025 10:57:49] Aplicación iniciada
+[27/03/2025 11:02:51] Aplicación iniciada
+[27/03/2025 11:16:46] Aplicación iniciada
+[27/03/2025 11:26:11] Aplicación iniciada
+[27/03/2025 11:34:27] Aplicación iniciada
+[27/03/2025 11:40:22] Aplicación iniciada
+[27/03/2025 11:42:41] Aplicación iniciada
+[27/03/2025 14:05:45] Aplicación iniciada
+[27/03/2025 14:09:41] Aplicación iniciada
+[27/03/2025 14:13:34] Aplicación iniciada
+[27/03/2025 15:23:41] Aplicación iniciada
+[27/03/2025 15:29:37] Aplicación iniciada
+[27/03/2025 15:37:15] Aplicación iniciada
+[27/03/2025 15:39:08] Aplicación iniciada
+[27/03/2025 3:49:51 p. m.] Aplicación iniciada
+[27/03/2025 3:56:57 p. m.] Aplicación iniciada
+[27/03/2025 4:05:48 p. m.] Aplicación iniciada
+[27/03/2025 4:22:06 p. m.] Aplicación iniciada
+[27/03/2025 4:22:31 p. m.] Aplicación iniciada
+[27/03/2025 4:27:08 p. m.] Aplicación iniciada
+[27/03/2025 4:35:14 p. m.] Aplicación iniciada
+[27/03/2025 4:42:08 p. m.] Aplicación iniciada
+[27/03/2025 4:44:33 p. m.] Aplicación iniciada
+[28/03/2025 8:40:57 a. m.] Aplicación iniciada
+[28/03/2025 8:48:31 a. m.] Aplicación iniciada
+[28/03/2025 10:25:05 a. m.] Aplicación iniciada
+[28/03/2025 10:27:36 a. m.] Aplicación iniciada
+[28/03/2025 10:30:19 a. m.] Aplicación iniciada
+[28/03/2025 10:33:42 a. m.] Aplicación iniciada
+[28/03/2025 10:43:18 a. m.] Aplicación iniciada
+[28/03/2025 11:08:55 a. m.] Aplicación iniciada
+[28/03/2025 11:09:34 a. m.] DispatcherUnhandledException: 'La invocación del constructor del tipo 'MiProyectoWPF.MainWindow' que coincide con las restricciones de enlace especificadas produjo una excepción.' (número de línea: '3'; posición de línea: '9').
+   at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadBamlStreamWithSyncInfo(Stream stream, ParserContext pc)
+   at System.Windows.Application.DoStartup()
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[28/03/2025 11:12:35 a. m.] Aplicación iniciada
+[28/03/2025 11:15:46 a. m.] Aplicación iniciada
+[28/03/2025 11:17:20 a. m.] Aplicación iniciada
+[28/03/2025 11:21:44 a. m.] Aplicación iniciada
+[28/03/2025 11:23:55 a. m.] Aplicación iniciada
+[28/03/2025 11:24:09 a. m.] Aplicación iniciada
+[28/03/2025 2:12:26 p. m.] Aplicación iniciada
+[28/03/2025 2:23:43 p. m.] Aplicación iniciada
+[28/03/2025 2:29:23 p. m.] Aplicación iniciada
+[28/03/2025 2:31:12 p. m.] DispatcherUnhandledException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '199'; posición de línea: '47').
+   at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadBamlStreamWithSyncInfo(Stream stream, ParserContext pc)
+   at System.Windows.Application.DoStartup()
+   at System.Windows.Application.<.ctor>b__1_0(Object unused)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[28/03/2025 3:22:40 p. m.] Aplicación iniciada
+[28/03/2025 3:27:12 p. m.] Aplicación iniciada
+[28/03/2025 3:30:16 p. m.] Aplicación iniciada
+[28/03/2025 3:32:41 p. m.] Aplicación iniciada
+[28/03/2025 3:40:40 p. m.] Aplicación iniciada
+[28/03/2025 3:42:52 p. m.] Aplicación iniciada
+[28/03/2025 3:47:50 p. m.] Aplicación iniciada
+[28/03/2025 3:50:34 p. m.] Aplicación iniciada
+[28/03/2025 3:56:12 p. m.] Aplicación iniciada
+[28/03/2025 3:56:52 p. m.] Aplicación iniciada
+[28/03/2025 4:00:16 p. m.] Aplicación iniciada
+[28/03/2025 4:08:01 p. m.] Aplicación iniciada
+[28/03/2025 4:08:06 p. m.] DispatcherUnhandledException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '13'; posición de línea: '13').
+   at System.Windows.Markup.XamlReader.RewrapException(Exception e, IXamlLineInfo lineInfo, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   at System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   at System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   at System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   at MiProyectoWPF.ProgressWindow.InitializeComponent() in D:\Alerta Cartera\Background\MiProyectoWPF\ProgressWindow.xaml:line 1
+   at MiProyectoWPF.ProgressWindow..ctor(String message) in D:\Alerta Cartera\Background\MiProyectoWPF\ProgressWindow.xaml.cs:line 9
+   at MiProyectoWPF.MainWindow.SelectExcelFile_Click(Object sender, RoutedEventArgs e) in D:\Alerta Cartera\Background\MiProyectoWPF\MainWindow.xaml.cs:line 450
+   at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__128_0(Object state)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at System.Windows.Threading.ExceptionWrapper.TryCatchWhen(Object source, Delegate callback, Object args, Int32 numArgs, Delegate catchHandler)
+
+[28/03/2025 4:09:54 p. m.] Aplicación iniciada
+[28/03/2025 4:11:38 p. m.] Aplicación iniciada
+[28/03/2025 4:16:55 p. m.] Aplicación iniciada
+[28/03/2025 4:20:49 p. m.] Aplicación iniciada
+[28/03/2025 4:33:17 p. m.] Aplicación iniciada
