@@ -56,3 +56,4 @@ D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\CredentialDi
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\CredentialDialog.g.cs
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\ProgressWindow.baml
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\ProgressWindow.g.cs
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.sourcelink.json

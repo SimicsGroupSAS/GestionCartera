@@ -749,7 +749,13 @@ namespace MiProyectoWPF
                     var correos = GetEmailsForCompany(empresa);
                     if (correos.Count > 0)
                     {
-                        await emailSender.SendEmailAsync(correos, emailSubject, archivoRuta);
+                        await emailSender.SendEmailWithAttachmentAsync(
+                            correos, 
+                            emailSubject, 
+                            "Para SIMICS GROUP S.A.S. es muy importante contar con clientes como usted y mantenerlo informado sobre la situación actual de su cartera.\n\nAdjuntamos el estado de cuenta correspondiente; si tiene alguna observación, le agradecemos que nos la comunique por este medio para su pronta revisión.",
+                            archivoRuta,
+                            bccRecipient: bccEmailAddress);
+                        
                         LogMessage($"Correo enviado a {empresa} ({string.Join(", ", correos)})");
                     }
                     else
