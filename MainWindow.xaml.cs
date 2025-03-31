@@ -29,6 +29,7 @@ namespace MiProyectoWPF
         private string bccEmailAddress = "pofika1666@nokdot.com"; // Correo que recibirá copia de todos los envíos
         private string ccFinanzasEmail = ""; // Opcional: para enviar CC a otro departamento si se necesita
         private readonly string emailSubject = "ESTADO DE CARTERA - SIMICS GROUP SAS NIT 900853554-3"; // Asunto estándar para todos los correos
+        private readonly Dictionary<string, string> nitNormalizadoCache = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase); // Caché para NITs normalizados
 
         public MainWindow()
         {
@@ -111,6 +112,11 @@ namespace MiProyectoWPF
             try
             {
                 var credentials = CredentialManager.ReadSmtpCredentials();
+                if (credentials == null)
+                {
+                    LogMessage("No se pudieron cargar las credenciales. Usando valores predeterminados.");
+                    credentials = new CredentialManager.SmtpCredentials();
+                }
                 
                 if (!credentials.IsComplete)
                 {
@@ -352,10 +358,17 @@ namespace MiProyectoWPF
             if (string.IsNullOrWhiteSpace(nit))
                 return string.Empty;
             
+            // Verificar si ya está en caché
+            if (nitNormalizadoCache.TryGetValue(nit, out string? resultado))
+            {
+                return resultado;
+            }
+            
+            string nitNormalizado = string.Empty;
+            
             // Manejo para formato "NIT 900832816 - 8"
             if (nit.StartsWith("NIT", StringComparison.OrdinalIgnoreCase))
             {
-                LogMessage($"Detectado formato de NIT con prefijo: {nit}");
                 // Extraer solo los dígitos y el guion
                 nit = nit.Substring(3).Trim();
             }
@@ -372,8 +385,150 @@ namespace MiProyectoWPF
                 soloDigitosGuion = $"{baseNit}-{digitoVerificacion}";
             }
             
-            LogMessage($"NIT normalizado: '{nit}' -> '{soloDigitosGuion}'");
-            return soloDigitosGuion;
+            nitNormalizado = soloDigitosGuion;
+            
+            // Almacenar en caché
+            nitNormalizadoCache[nit] = nitNormalizado;
+            
+            return nitNormalizado;
+        }
+
+        private async Task LoadAllPdfFilesAsync(Dictionary<string, string> pdfFiles, Dictionary<string, string> empresasNits)
+        {
+            LogMessage("Cargando archivos PDF...");
+            
+            await Task.Run(() => {
+                try
+                {
+                    if (!Directory.Exists(pdfOutputFolder))
+                    {
+                        LogMessage($"⚠️ La carpeta de PDF no existe: {pdfOutputFolder}");
+                        return;
+                    }
+                    
+                    // Lista para almacenar las empresas encontradas
+                    HashSet<string> empresasEncontradas = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                    
+                    // Procesar el archivo de registro si existe
+                    string pdfsGeneradosPath = Path.Combine(pdfOutputFolder, "pdfs_generados.txt");
+                    bool loadedFromFile = false;
+                    
+                    if (File.Exists(pdfsGeneradosPath))
+                    {
+                        LogMessage("Cargando información desde pdfs_generados.txt");
+                        
+                        string currentEmpresa = "";
+                        string currentNit = "";
+                        string currentRuta = "";
+                        
+                        string[] lines = File.ReadAllLines(pdfsGeneradosPath);
+                        foreach (var line in lines)
+                        {
+                            string trimmedLine = line.Trim();
+                            
+                            if (string.IsNullOrEmpty(trimmedLine) || trimmedLine.StartsWith("Fecha") || 
+                                trimmedLine.StartsWith("Total") || trimmedLine.Contains("---------"))
+                                continue;
+                            
+                            if (trimmedLine.StartsWith("Empresa:"))
+                                currentEmpresa = trimmedLine.Replace("Empresa:", "").Trim();
+                            else if (trimmedLine.StartsWith("NIT:"))
+                                currentNit = trimmedLine.Replace("NIT:", "").Trim();
+                            else if (trimmedLine.StartsWith("Ruta:"))
+                            {
+                                currentRuta = trimmedLine.Replace("Ruta:", "").Trim();
+                                
+                                if (!string.IsNullOrEmpty(currentEmpresa) && !string.IsNullOrEmpty(currentRuta) && 
+                                    File.Exists(currentRuta))
+                                {
+                                    // Agregar a la lista de empresas encontradas
+                                    empresasEncontradas.Add(currentEmpresa);
+                                    
+                                    pdfFiles[currentEmpresa] = currentRuta;
+                                    
+                                    if (!string.IsNullOrEmpty(currentNit))
+                                    {
+                                        empresasNits[currentEmpresa] = currentNit;
+                                        // Normalizar el NIT sólo para empresas reales
+                                        if (!string.IsNullOrEmpty(currentNit))
+                                        {
+                                            string nitNormalizado = NormalizarNIT(currentNit);
+                                            if (!string.IsNullOrEmpty(nitNormalizado))
+                                                empresasNits[nitNormalizado] = currentEmpresa;
+                                        }
+                                    }
+                                    
+                                    loadedFromFile = true;
+                                }
+                                
+                                currentEmpresa = "";
+                                currentNit = "";
+                                currentRuta = "";
+                            }
+                        }
+                        
+                        LogMessage($"Se cargaron {pdfFiles.Count} PDFs desde el archivo de registro");
+                    }
+                    
+                    if (!loadedFromFile)
+                    {
+                        LogMessage("Buscando PDFs directamente en la carpeta de salida");
+                        
+                        if (Directory.Exists(pdfOutputFolder))
+                        {
+                            string[] files = Directory.GetFiles(pdfOutputFolder, "*.pdf");
+                            
+                            foreach (var file in files)
+                            {
+                                string fileName = Path.GetFileNameWithoutExtension(file);
+                                
+                                string nombreBase = fileName
+                                    .Replace("_CarteraVencida", "")
+                                    .Replace("_CarteraPorVencer", "");
+                                
+                                string empresa = nombreBase;
+                                string nit = "";
+                                
+                                if (nombreBase.Contains("_"))
+                                {
+                                    var parts = nombreBase.Split('_');
+                                    if (parts.Length >= 2)
+                                    {
+                                        empresa = parts[0];
+                                        nit = parts[1];
+                                    }
+                                }
+                                
+                                // Agregar a la lista de empresas encontradas
+                                empresasEncontradas.Add(empresa);
+                                
+                                pdfFiles[empresa] = file;
+                                
+                                if (!string.IsNullOrEmpty(nit))
+                                {
+                                    empresasNits[empresa] = nit;
+                                    
+                                    // Normalizar el NIT sólo para empresas encontradas
+                                    string nitNormalizado = NormalizarNIT(nit);
+                                    if (!string.IsNullOrEmpty(nitNormalizado))
+                                        empresasNits[nitNormalizado] = empresa;
+                                }
+                            }
+                            
+                            LogMessage($"Se encontraron {pdfFiles.Count} archivos PDF en la carpeta");
+                        }
+                    }
+                    
+                    LogMessage($"Total de NITs normalizados y cacheados: {nitNormalizadoCache.Count}");
+                }
+                catch (Exception ex)
+                {
+                    LogExceptionDetails(ex, "LoadAllPdfFilesAsync");
+                    Dispatcher.Invoke(() => {
+                        MessageBox.Show($"Error al cargar los archivos PDF: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    });
+                }
+            });
         }
 
         private async void SelectExcelFile_Click(object sender, RoutedEventArgs e)
@@ -509,108 +664,6 @@ namespace MiProyectoWPF
                 Dispatcher.Invoke(() => {
                     MessageBox.Show($"Error al cargar datos: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 });
-            }
-        }
-
-        private async Task LoadAllPdfFilesAsync(Dictionary<string, string> pdfFiles, Dictionary<string, string> empresasNits)
-        {
-            string pdfsGeneradosPath = Path.Combine(pdfOutputFolder, "pdfs_generados.txt");
-            bool loadedFromFile = false;
-            
-            if (File.Exists(pdfsGeneradosPath))
-            {
-                LogMessage("Cargando información desde pdfs_generados.txt");
-                
-                string currentEmpresa = "";
-                string currentNit = "";
-                string currentRuta = "";
-                
-                string[] lines = await Task.Run(() => File.ReadAllLines(pdfsGeneradosPath));
-                foreach (var line in lines)
-                {
-                    string trimmedLine = line.Trim();
-                    
-                    if (string.IsNullOrEmpty(trimmedLine) || trimmedLine.StartsWith("Fecha") || 
-                        trimmedLine.StartsWith("Total") || trimmedLine.Contains("---------"))
-                        continue;
-                    
-                    if (trimmedLine.StartsWith("Empresa:"))
-                        currentEmpresa = trimmedLine.Replace("Empresa:", "").Trim();
-                    else if (trimmedLine.StartsWith("NIT:"))
-                        currentNit = trimmedLine.Replace("NIT:", "").Trim();
-                    else if (trimmedLine.StartsWith("Ruta:"))
-                    {
-                        currentRuta = trimmedLine.Replace("Ruta:", "").Trim();
-                        
-                        if (!string.IsNullOrEmpty(currentEmpresa) && !string.IsNullOrEmpty(currentRuta) && 
-                            File.Exists(currentRuta))
-                        {
-                            pdfFiles[currentEmpresa] = currentRuta;
-                            
-                            if (!string.IsNullOrEmpty(currentNit))
-                            {
-                                empresasNits[currentEmpresa] = currentNit;
-                                
-                                string nitNormalizado = NormalizarNIT(currentNit);
-                                if (!string.IsNullOrEmpty(nitNormalizado))
-                                    empresasNits[nitNormalizado] = currentEmpresa;
-                            }
-                            
-                            loadedFromFile = true;
-                        }
-                        
-                        currentEmpresa = "";
-                        currentNit = "";
-                        currentRuta = "";
-                    }
-                }
-                
-                LogMessage($"Se cargaron {pdfFiles.Count} PDFs desde el archivo de registro");
-            }
-            
-            if (!loadedFromFile)
-            {
-                LogMessage("Buscando PDFs directamente en la carpeta de salida");
-                
-                if (Directory.Exists(pdfOutputFolder))
-                {
-                    string[] files = await Task.Run(() => Directory.GetFiles(pdfOutputFolder, "*.pdf"));
-                    
-                    foreach (var file in files)
-                    {
-                        string fileName = Path.GetFileNameWithoutExtension(file);
-                        
-                        string nombreBase = fileName
-                            .Replace("_CarteraVencida", "")
-                            .Replace("_CarteraPorVencer", "");
-                        
-                        string empresa = nombreBase;
-                        string nit = "";
-                        
-                        if (nombreBase.Contains("_"))
-                        {
-                            var parts = nombreBase.Split('_');
-                            if (parts.Length >= 2)
-                            {
-                                empresa = parts[0];
-                                nit = parts[1];
-                            }
-                        }
-                        
-                        pdfFiles[empresa] = file;
-                        
-                        if (!string.IsNullOrEmpty(nit))
-                        {
-                            empresasNits[empresa] = nit;
-                            
-                            string nitNormalizado = NormalizarNIT(nit);
-                            if (!string.IsNullOrEmpty(nitNormalizado))
-                                empresasNits[nitNormalizado] = empresa;
-                        }
-                    }
-                    
-                    LogMessage($"Se encontraron {pdfFiles.Count} archivos PDF en la carpeta");
-                }
             }
         }
 

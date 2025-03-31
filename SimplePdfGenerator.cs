@@ -86,12 +86,12 @@ namespace MiProyectoWPF
         // Propiedad para acceder a la lista de PDFs generados
         public IReadOnlyList<GeneratedPdfInfo> GeneratedPdfFiles => generatedPdfs.AsReadOnly();
 
-        public SimplePdfGenerator(string rutaBase, string pdfOutputFolder, Action<string> logCallback, string tempFolderPath = null)
+        public SimplePdfGenerator(string rutaBase, string pdfOutputFolder, Action<string> logCallback, string? tempFolderPath = null)
         {
-            this.rutaBase = rutaBase;
-            this.pdfOutputFolder = pdfOutputFolder;
-            this.logCallback = logCallback;
-            this.tempFolderPath = tempFolderPath; // Guardamos la ruta de la carpeta temp
+            this.rutaBase = rutaBase ?? throw new ArgumentNullException(nameof(rutaBase));
+            this.pdfOutputFolder = pdfOutputFolder ?? throw new ArgumentNullException(nameof(pdfOutputFolder));
+            this.logCallback = logCallback ?? throw new ArgumentNullException(nameof(logCallback));
+            this.tempFolderPath = tempFolderPath ?? string.Empty; // Asignar cadena vacía si es nulo
 
             // Modificar la ruta de la plantilla para usar un PNG directamente - ruta exacta que proporciona el usuario
             this.templatePath = @"D:\Alerta Cartera\Background\MiProyectoWPF\Archivos\PlantillaSIMICS.png";
@@ -226,7 +226,13 @@ namespace MiProyectoWPF
                     logCallback($"Leyendo hoja: {worksheet.Name}");
                     
                     // Determinar hasta qué fila hay datos
-                    var lastRow = worksheet.LastRowUsed().RowNumber();
+                    var lastRow = worksheet.LastRowUsed()?.RowNumber() ?? 0; // Verificar si LastRowUsed es nulo
+                    if (lastRow == 0)
+                    {
+                        logCallback("No se encontraron filas en el archivo Excel.");
+                        return;
+                    }
+                    
                     logCallback($"Última fila con datos: {lastRow}");
                     
                     // Inicia en la fila 5 (equivalente a Skip(4))

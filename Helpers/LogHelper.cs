@@ -90,6 +90,12 @@ namespace MiProyectoWPF.Helpers
         /// </summary>
         public static void LogFileDetails(string filePath, string context = "")
         {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                Log($"[{context}] Ruta del archivo es nula o vacía.", LogLevel.Warning);
+                return;
+            }
+
             try
             {
                 if (!string.IsNullOrEmpty(context))

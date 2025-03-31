@@ -212,6 +212,65 @@ namespace MiProyectoWPF
             }
         }
         
+        public async Task<bool> SendEmailWithZipAttachmentAsync(
+            string recipient,
+            string subject,
+            string body,
+            string zipFilePath,
+            bool isBodyHtml = true)
+        {
+            try
+            {
+                logCallback($"Enviando respaldo ZIP a: {recipient}...");
+                
+                // Verificar que el archivo ZIP existe
+                if (!File.Exists(zipFilePath))
+                {
+                    logCallback($"Error: El archivo ZIP adjunto no existe: {zipFilePath}");
+                    return false;
+                }
+                
+                // Información detallada sobre el tamaño del archivo
+                var fileInfo = new FileInfo(zipFilePath);
+                logCallback($"Archivo ZIP: {Path.GetFileName(zipFilePath)}, tamaño: {fileInfo.Length / 1024} KB");
+                
+                using var message = new MailMessage
+                {
+                    From = new MailAddress(username),
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = isBodyHtml
+                };
+                
+                // Agregar destinatario (BCC)
+                message.To.Add(recipient);
+                
+                // Agregar adjunto ZIP
+                var attachment = new Attachment(zipFilePath);
+                message.Attachments.Add(attachment);
+                
+                using var client = new SmtpClient(smtpServer)
+                {
+                    Port = port,
+                    Credentials = new NetworkCredential(username, password),
+                    EnableSsl = enableSsl,
+                    Timeout = 120000
+                };
+                
+                logCallback("Enviando correo con respaldo ZIP...");
+                await client.SendMailAsync(message);
+                logCallback("¡Correo con respaldo ZIP enviado con éxito!");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logCallback($"Error al enviar correo con ZIP: {ex.Message}");
+                if (ex.InnerException != null)
+                    logCallback($"Detalles: {ex.InnerException.Message}");
+                return false;
+            }
+        }
+        
         public static string GetEmailHtmlTemplate(string textContent)
         {
             // Plantilla HTML para el correo con firma profesional
