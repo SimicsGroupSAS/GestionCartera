@@ -1,116 +1,83 @@
 ﻿<Window x:Class="MiProyectoWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="White"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         Title="SIMICS - Gestión de Cartera" Height="600" Width="800">
     <Grid>
-        <!-- Agregar menú en la parte superior -->
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="Archivo">
-                    <MenuItem Header="Salir" Click="MenuItem_Exit_Click"/>
-                </MenuItem>
-                <MenuItem Header="Herramientas">
-                    <MenuItem Header="Configurar Credenciales" Click="MenuItem_ConfigCredentials_Click"/>
-                </MenuItem>
-                <MenuItem Header="Ayuda">
-                    <MenuItem Header="Acerca de" Click="MenuItem_About_Click"/>
-                </MenuItem>
-            </Menu>
-            
-            <!-- Contenido principal -->
-            <TabControl x:Name="mainTabControl">
-                <!-- Pestaña de Inicio -->
+            <!-- Top AppBar -->
+            <Border DockPanel.Dock="Top" Background="White" Padding="16">
+                <DockPanel>
+                    <Image Source="d:/Alerta Cartera/Background/MiProyectoWPF/Assets/Simics.png" Height="40" VerticalAlignment="Center" />
+                    <Menu Background="Transparent" Foreground="Black" HorizontalAlignment="Right">
+                        <MenuItem Header="Herramientas">
+                            <MenuItem Header="Configurar Credenciales" Click="MenuItem_ConfigCredentials_Click"/>
+                        </MenuItem>
+                        <MenuItem Header="Ayuda">
+                            <MenuItem Header="Acerca de" Click="MenuItem_About_Click"/>
+                        </MenuItem>
+                    </Menu>
+                </DockPanel>
+            </Border>
+
+            <!-- Main Content -->
+            <TabControl x:Name="mainTabControl" Style="{StaticResource MaterialDesignTabControl}">
+                <!-- Tab: Inicio -->
                 <TabItem Header="Inicio" IsSelected="True">
                     <Grid>
                         <StackPanel Margin="20" VerticalAlignment="Center">
                             <TextBlock Text="Sistema de Gestión de Cartera" 
                                       FontSize="24" FontWeight="Bold" 
-                                      HorizontalAlignment="Center" Margin="0,0,0,30"/>
+                                      HorizontalAlignment="Center" Margin="0,0,0,30"
+                                      Foreground="{DynamicResource MaterialDesignPrimaryColorBrush}"/>
                             
-                            <Border BorderBrush="#CCCCCC" BorderThickness="1" Padding="15" Margin="0,10,0,20">
+                            <materialDesign:Card Margin="0,10,0,20" Padding="16" Background="White">
                                 <StackPanel>
                                     <TextBlock Text="Paso 1: Generar Estados de Cuenta" 
-                                              FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-                                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                                              FontSize="18" FontWeight="Bold" Margin="0,0,0,10"
+                                              Foreground="{DynamicResource MaterialDesignBlackBrush}"/>
+                                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10"
+                                               Foreground="{DynamicResource MaterialDesignDarkGrayBrush}">
                                         Esta opción procesa el archivo Excel de cartera y genera los documentos de estado de cuenta en formato PDF.
                                     </TextBlock>
                                     <Button Content="Generar Estados de Cuenta" 
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
                                             Height="40" FontSize="14" 
-                                            Background="#007ACC" Foreground="White"
+                                            Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                            Foreground="White"
                                             Click="GenerarEstadosCuenta_Click" Margin="0,10"/>
                                 </StackPanel>
-                            </Border>
+                            </materialDesign:Card>
                             
-                            <Border BorderBrush="#CCCCCC" BorderThickness="1" Padding="15" Margin="0,10,0,20">
+                            <materialDesign:Card Margin="0,10,0,20" Padding="16" Background="White">
                                 <StackPanel>
                                     <TextBlock Text="Paso 2: Enviar Estados de Cuenta por Correo" 
-                                              FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-                                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+                                              FontSize="18" FontWeight="Bold" Margin="0,0,0,10"
+                                              Foreground="{DynamicResource MaterialDesignBlackBrush}"/>
+                                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,10"
+                                               Foreground="{DynamicResource MaterialDesignDarkGrayBrush}">
                                         Esta opción permite seleccionar las empresas y enviar los estados de cuenta por correo electrónico.
                                     </TextBlock>
                                     <Button Content="Enviar Estados de Cuenta" 
+                                            Style="{StaticResource MaterialDesignRaisedButton}"
+                                            Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                            Foreground="White"
                                             Height="40" FontSize="14"
-                                            Background="#4CAF50" Foreground="White"
                                             Click="EnviarEstadosCuenta_Click" Margin="0,10"/>
                                 </StackPanel>
-                            </Border>
+                            </materialDesign:Card>
                         </StackPanel>
                     </Grid>
                 </TabItem>
                 
-                <!-- Pestaña de Envío de Correos (existente) -->
-                <TabItem Header="Envío de Correos" x:Name="tabEnvioCorreos">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="200"/> <!-- Nueva fila para el log -->
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Text="Seleccione las empresas para gestionar:" FontSize="16" Margin="10" Grid.Row="0"/>
-                        <Button Content="Seleccionar Archivo Excel" Width="200" Margin="5" Click="SelectExcelFile_Click" Grid.Row="0" HorizontalAlignment="Right"/>
-
-                        <ScrollViewer Grid.Row="1" Margin="10">
-                            <StackPanel x:Name="CheckboxContainer" />
-                        </ScrollViewer>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="10">
-                            <Button Content="Seleccionar Todos" Width="150" Margin="5" Click="SelectAll_Click"/>
-                            <Button Content="Deseleccionar Todos" Width="150" Margin="5" Click="DeselectAll_Click"/>
-                            <Button Content="Ver Detalles de Archivos" Width="180" Margin="5" Click="MostrarDetallesArchivos_Click"/>
-                            <!-- Quitamos el botón de correos de prueba y restauramos el botón normal -->
-                            <Button Content="Enviar Correos" Width="150" Margin="5" Click="ExecuteAction_Click" 
-                                    Background="#4CAF50" Foreground="White"/>
-                        </StackPanel>
-                        
-                        <!-- Nuevo panel de logs -->
-                        <Grid Grid.Row="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Log de operaciones:" FontSize="12" FontWeight="Bold" Margin="10,5,10,0" Grid.Row="0"/>
-                            <ScrollViewer Grid.Row="1" Margin="10,0,10,10" 
-                                          VerticalScrollBarVisibility="Auto" 
-                                          HorizontalScrollBarVisibility="Auto"
-                                          CanContentScroll="True">
-                                <TextBox x:Name="txtEnvioLog" 
-                                        IsReadOnly="True" 
-                                        TextWrapping="Wrap" 
-                                        AcceptsReturn="True"
-                                        VerticalScrollBarVisibility="Visible"
-                                        HorizontalScrollBarVisibility="Auto"
-                                        Background="#F8F8F8" 
-                                        FontFamily="Consolas"
-                                        Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}"
-                                        MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}"/>
-                            </ScrollViewer>
-                        </Grid>
-                    </Grid>
-                </TabItem>
-                
-                <!-- Pestaña de Generación de Documentos (nueva) -->
+                <!-- Tab: Generación de Documentos -->
                 <TabItem Header="Generación de Documentos" x:Name="tabGeneracionDocumentos">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -119,14 +86,26 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Margin="10">
-                            <TextBlock Text="Generación de Estados de Cuenta" FontSize="16" Margin="0,0,0,10"/>
-                            <Button Content="Seleccionar Archivo Excel" Width="200" 
-                                    HorizontalAlignment="Left" Margin="0,5" Click="SelectExcelFileForGeneration_Click"/>
-                            <TextBlock x:Name="txtExcelSeleccionado" Text="Ningún archivo seleccionado" Margin="0,5"/>
+                        <StackPanel Grid.Row="0" Margin="16">
+                            <TextBlock Text="Generación de Estados de Cuenta" 
+                                       FontSize="16" 
+                                       Margin="0,0,0,10"
+                                       Foreground="{DynamicResource MaterialDesignPrimaryColorBrush}"/>
+                            <Button Content="Seleccionar Archivo Excel" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="200" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="0,5" 
+                                    Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                    Foreground="White"
+                                    Click="SelectExcelFileForGeneration_Click"/>
+                            <TextBlock x:Name="txtExcelSeleccionado" 
+                                       Text="Ningún archivo seleccionado" 
+                                       Margin="0,5"
+                                       Foreground="{DynamicResource MaterialDesignDarkGrayBrush}"/>
                         </StackPanel>
 
-                        <ScrollViewer Grid.Row="1" Margin="10" 
+                        <ScrollViewer Grid.Row="1" Margin="16" 
                                       VerticalScrollBarVisibility="Auto" 
                                       HorizontalScrollBarVisibility="Auto" 
                                       CanContentScroll="True">
@@ -138,18 +117,112 @@
                                      HorizontalScrollBarVisibility="Auto"
                                      Background="#F8F8F8" 
                                      FontFamily="Consolas"
+                                     Foreground="{DynamicResource MaterialDesignDarkGrayBrush}"
                                      Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}"
                                      MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}"/>
                         </ScrollViewer>
 
-                        <StackPanel Grid.Row="2" Margin="10">
+                        <StackPanel Grid.Row="2" Margin="16">
                             <Button Content="Generar Estados de Cuenta" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
                                     Width="200" Height="35" FontSize="14"
-                                    Background="#007ACC" Foreground="White"
+                                    Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                    Foreground="White"
                                     Click="ProcessExcelAndGenerateDocuments_Click"/>
                             <TextBlock x:Name="txtEstadoGeneracion" Margin="0,5" 
-                                      TextWrapping="Wrap" FontStyle="Italic"/>
+                                       TextWrapping="Wrap" FontStyle="Italic"
+                                       Foreground="{DynamicResource MaterialDesignDarkGrayBrush}"/>
                         </StackPanel>
+                    </Grid>
+                </TabItem>
+                
+                <!-- Tab: Envío de Correos -->
+                <TabItem Header="Envío de Correos" x:Name="tabEnvioCorreos">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Row="0" Margin="16,16,16,0">
+                            <TextBlock Text="Seleccione las empresas para gestionar:" 
+                                       FontSize="16" 
+                                       VerticalAlignment="Center"
+                                       DockPanel.Dock="Left"
+                                       Foreground="{DynamicResource MaterialDesignPrimaryColorBrush}"/>
+                            <Button Content="Seleccionar Archivo Excel" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="200" Margin="16,0,0,0" 
+                                    Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                    Foreground="White"
+                                    Click="SelectExcelFile_Click" 
+                                    DockPanel.Dock="Right"
+                                    HorizontalAlignment="Right"/>
+                        </DockPanel>
+
+                        <ScrollViewer Grid.Row="1" Margin="16">
+                            <StackPanel x:Name="CheckboxContainer" />
+                        </ScrollViewer>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="16">
+                            <Button Content="Seleccionar Todos" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="150" Margin="5" 
+                                    Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                    Foreground="White"
+                                    Click="SelectAll_Click"/>
+                            <Button Content="Deseleccionar Todos" 
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                                    Width="150" Margin="5" 
+                                    Background="{DynamicResource MaterialDesignSecondaryColorBrush}"
+                                    Foreground="{DynamicResource MaterialDesignBlackBrush}"
+                                    Click="DeselectAll_Click"/>
+                            <Button Content="Ver Detalles de Archivos" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="180" Margin="5" 
+                                    Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                    Foreground="White"
+                                    Click="MostrarDetallesArchivos_Click"/>
+                            <Button Content="Enviar Correos" 
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Width="150" Margin="5" 
+                                    Background="{DynamicResource MaterialDesignPrimaryColorBrush}"
+                                    Foreground="White"
+                                    Click="ExecuteAction_Click"/>
+                        </StackPanel>
+                        
+                        <!-- Panel de logs -->
+                        <Grid Grid.Row="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Log de operaciones:" 
+                                       FontSize="12" 
+                                       FontWeight="Bold" 
+                                       Margin="16,8,16,0" 
+                                       Grid.Row="0"
+                                       Foreground="{DynamicResource MaterialDesignPrimaryColorBrush}"/>
+                            <ScrollViewer Grid.Row="1" 
+                                          Margin="16,0,16,16" 
+                                          VerticalScrollBarVisibility="Auto" 
+                                          HorizontalScrollBarVisibility="Auto"
+                                          CanContentScroll="True">
+                                <TextBox x:Name="txtEnvioLog" 
+                                        IsReadOnly="True" 
+                                        TextWrapping="Wrap" 
+                                        AcceptsReturn="True"
+                                        VerticalScrollBarVisibility="Visible"
+                                        HorizontalScrollBarVisibility="Auto"
+                                        Background="#F8F8F8" 
+                                        FontFamily="Consolas"
+                                        Foreground="{DynamicResource MaterialDesignDarkGrayBrush}"
+                                        Width="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}"
+                                        MaxWidth="{Binding RelativeSource={RelativeSource AncestorType=ScrollViewer}, Path=ViewportWidth}"/>
+                            </ScrollViewer>
+                        </Grid>
                     </Grid>
                 </TabItem>
             </TabControl>

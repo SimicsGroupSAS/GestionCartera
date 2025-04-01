@@ -1,8 +1,27 @@
 ﻿<Application x:Class="MiProyectoWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Material Design Defaults -->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Define Custom Colors -->
+            <Color x:Key="PrimaryColor">#0f8937</Color> <!-- Green -->
+            <Color x:Key="SecondaryColor">#9d9d9c</Color> <!-- Gray -->
+            <Color x:Key="DarkGrayColor">#4f4e4e</Color> <!-- Dark Gray -->
+            <Color x:Key="BlackColor">#000000</Color> <!-- Black -->
+
+            <!-- Override Material Design Brushes -->
+            <SolidColorBrush x:Key="MaterialDesignPrimaryColorBrush" Color="{StaticResource PrimaryColor}" />
+            <SolidColorBrush x:Key="MaterialDesignSecondaryColorBrush" Color="{StaticResource SecondaryColor}" />
+            <SolidColorBrush x:Key="MaterialDesignDarkGrayBrush" Color="{StaticResource DarkGrayColor}" />
+            <SolidColorBrush x:Key="MaterialDesignBlackBrush" Color="{StaticResource BlackColor}" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

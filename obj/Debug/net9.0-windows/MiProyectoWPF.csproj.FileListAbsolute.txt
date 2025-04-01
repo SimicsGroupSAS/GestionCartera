@@ -57,3 +57,7 @@ D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\CredentialDi
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\ProgressWindow.baml
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\ProgressWindow.g.cs
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.sourcelink.json
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\App.baml
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MaterialDesignColors.dll
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MaterialDesignThemes.Wpf.dll
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Microsoft.Xaml.Behaviors.dll
