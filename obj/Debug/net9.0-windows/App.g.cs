@@ -60,7 +60,7 @@ namespace MiProyectoWPF {
             
             #line default
             #line hidden
-            System.Uri resourceLocater = new System.Uri("/MiProyectoWPF;component/app.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Gestión de Cartera;component/app.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\App.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

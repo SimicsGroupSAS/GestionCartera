@@ -202,3 +202,7 @@
 [1/04/2025 10:48:48 a. m.] Aplicación iniciada
 [1/04/2025 10:50:49 a. m.] Aplicación iniciada
 [1/04/2025 10:56:26 a. m.] Aplicación iniciada
+[1/04/2025 11:08:00 a. m.] Aplicación iniciada
+[1/04/2025 11:10:12 a. m.] Gestión de Cartera iniciada
+[1/04/2025 11:12:09 a. m.] Gestión de Cartera iniciada
+[1/04/2025 11:13:32 a. m.] Gestión de Cartera iniciada

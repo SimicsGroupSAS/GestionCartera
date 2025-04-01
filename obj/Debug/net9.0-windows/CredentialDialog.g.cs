@@ -107,7 +107,7 @@ namespace MiProyectoWPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MiProyectoWPF;component/credentialdialog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Gestión de Cartera;component/credentialdialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\CredentialDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

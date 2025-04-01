@@ -59,7 +59,7 @@ namespace MiProyectoWPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MiProyectoWPF;component/detallespdfwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Gestión de Cartera;component/detallespdfwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\DetallesPdfWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

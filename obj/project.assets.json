@@ -5250,7 +5250,7 @@
     "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\Alerta Cartera\\Background\\MiProyectoWPF\\MiProyectoWPF.csproj",
-      "projectName": "MiProyectoWPF",
+      "projectName": "Gestión de Cartera",
       "projectPath": "D:\\Alerta Cartera\\Background\\MiProyectoWPF\\MiProyectoWPF.csproj",
       "packagesPath": "C:\\Users\\Practicante\\.nuget\\packages\\",
       "outputPath": "D:\\Alerta Cartera\\Background\\MiProyectoWPF\\obj\\",

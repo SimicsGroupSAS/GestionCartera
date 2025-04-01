@@ -27,7 +27,7 @@ namespace MiProyectoWPF
             // Escribir información de inicio al log
             try
             {
-                File.AppendAllText(logFile, $"[{DateTime.Now}] Aplicación iniciada\n");
+                File.AppendAllText(logFile, $"[{DateTime.Now}] Gestión de Cartera iniciada\n");
             }
             catch { /* Ignorar errores de log */ }
         }

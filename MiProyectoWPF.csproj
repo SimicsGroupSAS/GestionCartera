@@ -9,6 +9,8 @@
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
     <IncludePackageReferencesDuringMarkupCompilation>true</IncludePackageReferencesDuringMarkupCompilation>
     <ApplicationIcon>Assets\image001.ico</ApplicationIcon>
+    <AssemblyName>Gestión de Cartera</AssemblyName>
+    <RootNamespace>GestionDeCartera</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

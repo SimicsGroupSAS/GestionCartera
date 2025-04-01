@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v9.0": {
-      "MiProyectoWPF/1.0.0": {
+      "Gestión de Cartera/1.0.0": {
         "dependencies": {
           "ClosedXML": "0.104.2",
           "MaterialDesignColors": "2.1.4",
@@ -16,7 +16,7 @@
           "itext7.bouncy-castle-adapter": "8.0.2"
         },
         "runtime": {
-          "MiProyectoWPF.dll": {}
+          "Gestión de Cartera.dll": {}
         }
       },
       "BouncyCastle.Cryptography/2.2.1": {
@@ -860,7 +860,7 @@
     }
   },
   "libraries": {
-    "MiProyectoWPF/1.0.0": {
+    "Gestión de Cartera/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

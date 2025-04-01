@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("MiProyectoWPF")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Gestión de Cartera")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8044075110570229372e8e2b14986845e2bbee6")]
-[assembly: System.Reflection.AssemblyProductAttribute("MiProyectoWPF")]
-[assembly: System.Reflection.AssemblyTitleAttribute("MiProyectoWPF")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f50604dedc4215490f145a76f7f6cb03e69e2eca")]
+[assembly: System.Reflection.AssemblyProductAttribute("Gestión de Cartera")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Gestión de Cartera")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]

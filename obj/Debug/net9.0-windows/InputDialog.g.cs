@@ -67,7 +67,7 @@ namespace MiProyectoWPF {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MiProyectoWPF;component/inputdialog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Gestión de Cartera;component/inputdialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\InputDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

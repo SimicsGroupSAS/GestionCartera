@@ -2,17 +2,10 @@ D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWP
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MainWindow.baml
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MainWindow.g.cs
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\App.g.cs
-D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF_MarkupCompile.cache
-D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.g.resources
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.GeneratedMSBuildEditorConfig.editorconfig
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.AssemblyInfoInputs.cache
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.AssemblyInfo.cs
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.csproj.CoreCompileInputs.cache
-D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MiProyectoWPF.exe
-D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MiProyectoWPF.deps.json
-D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MiProyectoWPF.runtimeconfig.json
-D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MiProyectoWPF.dll
-D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MiProyectoWPF.pdb
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\ClosedXML.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\ClosedXML.Parser.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\DocumentFormat.OpenXml.dll
@@ -21,11 +14,7 @@ D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\ExcelNumberF
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\RBush.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\SixLabors.Fonts.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyec.AC5913F6.Up2Date
-D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.dll
-D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\refint\MiProyectoWPF.dll
-D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.pdb
 D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\MiProyectoWPF.genruntimeconfig.cache
-D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\ref\MiProyectoWPF.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\BouncyCastle.Cryptography.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\itext.barcodes.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\itext.bouncy-castle-connector.dll
@@ -61,3 +50,14 @@ D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\App.baml
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MaterialDesignColors.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\MaterialDesignThemes.Wpf.dll
 D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Microsoft.Xaml.Behaviors.dll
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\Gestión de Cartera_MarkupCompile.cache
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\Gestión de Cartera.g.resources
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Gestión de Cartera.exe
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Gestión de Cartera.deps.json
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Gestión de Cartera.runtimeconfig.json
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Gestión de Cartera.dll
+D:\Alerta Cartera\Background\MiProyectoWPF\bin\Debug\net9.0-windows\Gestión de Cartera.pdb
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\Gestión de Cartera.dll
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\refint\Gestión de Cartera.dll
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\Gestión de Cartera.pdb
+D:\Alerta Cartera\Background\MiProyectoWPF\obj\Debug\net9.0-windows\ref\Gestión de Cartera.dll

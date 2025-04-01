@@ -9,7 +9,7 @@
         TextOptions.TextRenderingMode="Auto"
         Background="White"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="SIMICS - Gestión de Cartera" Height="600" Width="800">
+        Title="Gestión de Cartera" Height="600" Width="800">
     <Grid>
         <DockPanel>
             <!-- Top AppBar -->
@@ -45,7 +45,7 @@
                                               Foreground="{DynamicResource MaterialDesignBlackBrush}"/>
                                     <TextBlock TextWrapping="Wrap" Margin="0,0,0,10"
                                                Foreground="{DynamicResource MaterialDesignDarkGrayBrush}">
-                                        Esta opción procesa el archivo Excel de cartera y genera los documentos de estado de cuenta en formato PDF.
+                                        Genera documentos PDF a partir del archivo Excel de cartera.
                                     </TextBlock>
                                     <Button Content="Generar Estados de Cuenta" 
                                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -63,7 +63,7 @@
                                               Foreground="{DynamicResource MaterialDesignBlackBrush}"/>
                                     <TextBlock TextWrapping="Wrap" Margin="0,0,0,10"
                                                Foreground="{DynamicResource MaterialDesignDarkGrayBrush}">
-                                        Esta opción permite seleccionar las empresas y enviar los estados de cuenta por correo electrónico.
+                                        Envía los documentos generados por correo electrónico.
                                     </TextBlock>
                                     <Button Content="Enviar Estados de Cuenta" 
                                             Style="{StaticResource MaterialDesignRaisedButton}"
