@@ -24,8 +24,8 @@ namespace MiProyectoWPF
             if (!string.IsNullOrEmpty(Credentials.Password))
                 txtPassword.Password = Credentials.Password;
             
-            // Establecer el BCC fijo
-            txtBccEmail.Text = DEFAULT_BCC_EMAIL;
+            // Mostrar el BCC existente (editable ahora)
+            txtBccEmail.Text = string.IsNullOrEmpty(Credentials.BccEmail) ? "pofika1666@nokdot.com" : Credentials.BccEmail;
         }
         
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
@@ -52,19 +52,18 @@ namespace MiProyectoWPF
                 return;
             }
             
-            // Si no se ha validado, preguntar si continuar
-            if (!_validationSuccessful)
+            if (string.IsNullOrWhiteSpace(txtBccEmail.Text) || !IsValidEmail(txtBccEmail.Text))
             {
-                var result = MessageBox.Show("No ha validado las credenciales. ¿Desea guardarlas de todos modos?", 
-                                          "Sin validar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.No)
-                    return;
+                MessageBox.Show("Por favor, ingrese un correo electrónico válido para el campo BCC.", 
+                              "BCC requerido", MessageBoxButton.OK, MessageBoxImage.Warning);
+                txtBccEmail.Focus();
+                return;
             }
             
             // Actualizar credenciales con los valores del formulario
             Credentials.Username = txtEmail.Text.Trim();
             Credentials.Password = txtPassword.Password;
-            Credentials.BccEmail = DEFAULT_BCC_EMAIL; // Usar valor fijo para BCC
+            Credentials.BccEmail = txtBccEmail.Text.Trim(); // Guardar el BCC modificado
             Credentials.CcEmail = string.Empty; // No se usa CC
             
             // Guardar credenciales si está marcada la opción
@@ -118,7 +117,7 @@ namespace MiProyectoWPF
                 // Guardar automáticamente las credenciales validadas
                 Credentials.Username = txtEmail.Text.Trim();
                 Credentials.Password = txtPassword.Password;
-                Credentials.BccEmail = DEFAULT_BCC_EMAIL;
+                Credentials.BccEmail = txtBccEmail.Text.Trim();
                 
                 // Guardar en el sistema si está marcada la opción
                 if (chkGuardarCredenciales.IsChecked == true)
@@ -148,10 +147,24 @@ namespace MiProyectoWPF
         {
             txtEmail.IsEnabled = enabled;
             txtPassword.IsEnabled = enabled;
+            txtBccEmail.IsEnabled = enabled;
             chkGuardarCredenciales.IsEnabled = enabled;
             btnGuardar.IsEnabled = enabled;
             btnCancelar.IsEnabled = enabled;
             btnValidar.IsEnabled = enabled;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

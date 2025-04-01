@@ -1033,6 +1033,8 @@ namespace MiProyectoWPF
                 ForzarScrollToEnd(txtEnvioLog);
             });
             
+            var sentDocuments = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
             foreach (var empresa in seleccionados)
             {
                 if (empresasArchivos.TryGetValue(empresa, out var archivoRuta))
@@ -1040,14 +1042,22 @@ namespace MiProyectoWPF
                     var correos = GetEmailsForCompany(empresa);
                     if (correos.Count > 0)
                     {
-                        await emailSender.SendEmailWithAttachmentAsync(
+                        bool emailSent = await emailSender.SendEmailWithAttachmentAsync(
                             correos, 
                             emailSubject, 
                             "Para SIMICS GROUP S.A.S. es muy importante contar con clientes como usted y mantenerlo informado sobre la situación actual de su cartera.\n\nAdjuntamos el estado de cuenta correspondiente; si tiene alguna observación, le agradecemos que nos la comunique por este medio para su pronta revisión.",
                             archivoRuta,
                             bccRecipient: bccEmailAddress);
-                        
-                        LogMessage($"Correo enviado a {empresa} ({string.Join(", ", correos)})");
+
+                        if (emailSent)
+                        {
+                            sentDocuments.Add(empresa);
+                            LogMessage($"Correo enviado a {empresa} ({string.Join(", ", correos)})");
+                        }
+                        else
+                        {
+                            LogMessage($"⚠️ No se pudo enviar el correo a {empresa}.");
+                        }
                     }
                     else
                     {
@@ -1058,6 +1068,104 @@ namespace MiProyectoWPF
                 {
                     LogMessage($"⚠️ No se encontró archivo PDF para {empresa}. Correo no enviado.");
                 }
+            }
+
+            await CompareSentDocumentsWithGeneratedPdfs(sentDocuments);
+        }
+
+        private async Task CompareSentDocumentsWithGeneratedPdfs(HashSet<string> sentDocuments)
+        {
+            string pdfsGeneradosPath = Path.Combine(pdfOutputFolder, "pdfs_generados.txt");
+
+            if (!File.Exists(pdfsGeneradosPath))
+            {
+                LogMessage("El archivo 'pdfs_generados.txt' no existe. Por favor, genere los documentos primero.");
+                return;
+            }
+
+            var unsentDocuments = new List<string>();
+
+            try
+            {
+                foreach (var line in File.ReadAllLines(pdfsGeneradosPath))
+                {
+                    if (line.StartsWith("Empresa:"))
+                    {
+                        string empresa = line.Replace("Empresa:", "").Trim();
+                        if (!sentDocuments.Contains(empresa))
+                        {
+                            if (empresasArchivos.TryGetValue(empresa, out var rutaArchivo))
+                            {
+                                unsentDocuments.Add(rutaArchivo);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error al leer el archivo 'pdfs_generados.txt': {ex.Message}");
+                return;
+            }
+
+            if (unsentDocuments.Count > 0)
+            {
+                string zipFilePath = Path.Combine(tempFolderPath, "DocumentosNoEnviados.zip");
+
+                try
+                {
+                    // Crear el archivo ZIP
+                    if (File.Exists(zipFilePath))
+                    {
+                        File.Delete(zipFilePath);
+                    }
+
+                    using (var zip = ZipFile.Open(zipFilePath, ZipArchiveMode.Create))
+                    {
+                        foreach (var file in unsentDocuments)
+                        {
+                            if (File.Exists(file))
+                            {
+                                zip.CreateEntryFromFile(file, Path.GetFileName(file));
+                            }
+                        }
+                    }
+
+                    LogMessage($"Archivo ZIP creado: {zipFilePath}");
+
+                    // Enviar el archivo ZIP al correo BCC
+                    var credentials = CredentialManager.ReadSmtpCredentials();
+                    var emailSender = new EmailSender(
+                        CredentialManager.DEFAULT_SMTP_SERVER,
+                        CredentialManager.DEFAULT_SMTP_PORT,
+                        credentials.Username,
+                        credentials.Password,
+                        CredentialManager.DEFAULT_SMTP_SSL,
+                        LogMessage);
+
+                    bool emailSent = await emailSender.SendEmailWithZipAttachmentAsync(
+                        bccEmailAddress,
+                        "Documentos no enviados - SIMICS",
+                        "Se adjunta un archivo ZIP con los documentos que no pudieron ser enviados.",
+                        zipFilePath);
+
+                    if (emailSent)
+                    {
+                        LogMessage("Correo con documentos no enviados enviado correctamente al BCC.");
+                    }
+                    else
+                    {
+                        LogMessage("⚠️ No se pudo enviar el correo con los documentos no enviados.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogMessage($"Error al crear o enviar el archivo ZIP: {ex.Message}");
+                }
+            }
+            else
+            {
+                LogMessage("Todos los documentos generados fueron enviados correctamente.");
             }
         }
 
